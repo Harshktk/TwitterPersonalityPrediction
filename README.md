@@ -1,0 +1,1 @@
+This project aims to recognize personality types from Twitter data using machine learning techniques. The model analyzes tweets to determine the Myers-Briggs Type Indicator (MBTI) personality types: Introversion (I) vs. Extraversion (E), Sensing (S) vs. Intuition (N), Thinking (T) vs. Feeling (F), Judging (J) vs. Perceiving (P).
