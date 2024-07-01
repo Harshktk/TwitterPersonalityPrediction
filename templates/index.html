@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twitter MBTI Predictor</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Twitter MBTI Predictor</h1>
+            <form id="predictForm">
+                <div class="form-group">
+                    <label for="username">Enter Twitter Handle:</label>
+                    <input type="text" id="username" name="username" placeholder="@twitterhandle" required>
+                </div>
+                <button type="submit">Predict MBTI</button>
+            </form>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#predictForm').on('submit', function(e){
+                e.preventDefault();
+                $('#result').html('<p>Loading...</p>');
+                $.ajax({
+                    url: '/predict',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response){
+                        if(response.error) {
+                            $('#result').html('<p class="error">' + response.error + '</p>');
+                        } else {
+                            $('#result').html('<p class="success">Predicted MBTI: ' + response.mbti + '</p>');
+                        }
+                    },
+                    error: function() {
+                        $('#result').html('<p class="error">An error occurred. Please try again later.</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
